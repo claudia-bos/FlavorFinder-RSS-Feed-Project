@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import HomePage from './pages/HomePage.jsx'
+import FindRestaurantPage from './pages/FindRestaurantPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
+import 'bootstrap/dist/css/bootstrap.css'
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<App />}>
+      <Route index element={<HomePage />} />
+      <Route path="find-restaurant-page" element={<FindRestaurantPage />} />
+      <Route path='profile-page' element={<ProfilePage/>} />
+    </Route>
+  )
+)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <RouterProvider router={router} />
+  </React.StrictMode>
 )

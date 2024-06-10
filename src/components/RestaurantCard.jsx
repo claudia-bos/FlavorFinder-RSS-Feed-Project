@@ -1,8 +1,16 @@
 import React from 'react'
 
 const RestaurantCard = () => {
+
+
   return (
-    <div>RestaurantCard</div>
+
+    <>
+    <h4>Here are the best Reviewed Restaurants Near Washigton, UT</h4>
+    
+
+   
+    </>
   )
 }
 
