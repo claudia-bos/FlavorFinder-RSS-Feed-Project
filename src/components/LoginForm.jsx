@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 
-const LoginForm = () => {
+//the onlogin is like a helper that tells the website what to do when the log in button is cliked
+const LoginForm = ({ onLogin }) => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
 
   //i create a function handleSubmit so my values can be updated, (e) stands for event
-  const handleSubmit = (e) => {
+  //after all this is set up i create a async function, and this function will run when the log in button is clicked
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email)
-
-  }
+    try {
+      const user = { email, password }
+      onLogin(user)
+    } catch (error) {
+        console.log('Error logging in:', error)
+    }
+  };
 
 
   return (
@@ -25,7 +31,9 @@ const LoginForm = () => {
             type="email" 
             placeholder="youremail@gmail.com" 
             id="email" 
-            name="email"/>
+            name="email"
+            required
+            />
 
             <label htmlFor="password">Password:</label>
             <input 
@@ -34,7 +42,9 @@ const LoginForm = () => {
             type="password" 
             placeholder="********" 
             id="password" 
-            name="password"/>
+            name="password"
+            required
+            />
 
             <button type='submit'>Log in</button>
          </form>

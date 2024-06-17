@@ -1,12 +1,52 @@
-import React from 'react'
-import RestaurantCard from '../components/RestaurantCard'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import RestaurantList from '../components/RestaurantList.jsx'
+import { fetchRestaurants, addFavorite } from '../services/api.js'
 
-const ResultsPage = () => {
+//ResultsPage take one property user which repersents the person using the page
+//then we have to implement a state variable = useState so we can keep track of a list of restaurants, this will strore the API data 
 
+const ResultsPage = ({ user }) => {
+  const [restaurants, setRestaurants] = useState([])
+  const location = useLocation()
+
+
+  //this code will run when the search page is loading, this will fetch restaurant data from my API URL and then display it in the resultsPage
+  //with the designed queries, which is city,state,and zipcode(restaurant data will be display with that information)
+  useEffect(() => {
+    const query = new URLSearchParams(location.search)
+    const city = query.get('city')
+    const state = query.get('state')
+    const zipCode = query.get('zipCode')
+
+    const getRestaurants = async () => {
+      try {
+        const data = await fetchRestaurants(city, state, zipCode)
+        setRestaurants(data)
+      } catch (error) {
+        console.log('Error fetching restuarants:', error);
+      }
+    };
+    getRestaurants()
+  }, [location.search]);
+
+const handleAddFavorite = async (restaurantId) => {
+  try {
+    await addFavorite(user.id, restaurantId)
+    alert('Added to favorites!')
+  } catch (error) {
+    console.log('Error adding favorite:', error);
+  }
+};
+
+console.log('Restaurants:', restaurants);
 
   return (
     <>
-    <div>ResultsPage</div>
+    <div>
+      <h2>Check the Results!</h2>
+      <RestaurantList restaurants={restaurants} onAddFavorite={handleAddFavorite}/>
+    </div>
    
     </>
   )

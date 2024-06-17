@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "seed": "node database/seed.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "initdb": "dropdb --if-exists name-of-database && createdb name-of-database && node file-path-to-seed-file.js"
   },
   "dependencies": {
     "axios": "^1.7.2",

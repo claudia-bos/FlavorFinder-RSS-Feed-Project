@@ -1,8 +1,12 @@
 import { DataTypes, Model } from "sequelize";
-import connectToDB from "./db";
+import util from 'util';
+import url from 'url';
+import connectToDB from "./db.js";
 
-export const db = await connectToDB('postgresql:///');
+export const db = await connectToDB('postgresql:///flavorfinder');
 
+
+//This tells sequelize this is a table we will have
 export class User extends Model {
     [util.inspect.custom]() {
         return this.toJSON();
@@ -18,7 +22,7 @@ User.init(
         },
 
         email: {
-            tyoe: DataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
             unique: true
         },
@@ -45,7 +49,7 @@ export class Restaurant extends Model {
 
 Restaurant.init(
     {
-        id: {
+        restaurantId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -108,6 +112,12 @@ Restaurant.init(
     
 );
 
+
+export class Favorite extends Model {
+    [util.inspect.custom]() {
+        return this.toJSON();
+    }
+}
 Favorite.init(
 
     {
@@ -155,4 +165,5 @@ if (process.argv[1] === url.fileURLToPath(import.meta.url)) {
       });
   }
   
+
   export default db;

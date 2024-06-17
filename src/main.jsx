@@ -5,6 +5,7 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import HomePage from './pages/HomePage.jsx'
 import FindRestaurantPage from './pages/FindRestaurantPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+// import ResultsPage from '.pages/ResultsPage'
 import 'bootstrap/dist/css/bootstrap.css'
 
 const router = createBrowserRouter(
@@ -13,6 +14,7 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="find-restaurant-page" element={<FindRestaurantPage />} />
       <Route path='profile-page' element={<ProfilePage/>} />
+      {/* <Route path='/results-page' element={<ResultsPage/>}/> */}
     </Route>
   )
 )

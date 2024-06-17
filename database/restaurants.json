@@ -1,0 +1,37 @@
+[
+    {
+      "name": "Restaurant 1",
+      "formatted_address": "123 Main St",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "icon": "icon_url",
+      "business_status": "OPERATIONAL",
+      "open_now": true,
+      "photo_reference": "photo_reference_1",
+      "place_id": "place_id_1",
+      "compound_code": "compound_code_1",
+      "global_code": "global_code_1",
+      "price_level": 2,
+      "rating": 4.5,
+      "user_ratings_total": 100,
+      "types": "type1, type2"
+    },
+    {
+      "name": "Restaurant 2",
+      "formatted_address": "456 Elm St",
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "icon": "icon_url",
+      "business_status": "OPERATIONAL",
+      "open_now": false,
+      "photo_reference": "photo_reference_2",
+      "place_id": "place_id_2",
+      "compound_code": "compound_code_2",
+      "global_code": "global_code_2",
+      "price_level": 3,
+      "rating": 4.0,
+      "user_ratings_total": 150,
+      "types": "type3, type4"
+    }
+  ]
+  

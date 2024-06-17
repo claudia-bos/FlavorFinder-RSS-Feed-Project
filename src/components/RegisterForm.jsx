@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 
-
-const RegisterForm = () => {
+//so onRegister will be call inside my RegisterForm function,this is called destructuring
+//it means that my function is expecting to receive an object with a property onRegister
+//onRegister will be call when the user submits their email,name and password 
+const RegisterForm = ({ onRegister }) => {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const [pass, setPass] = useState('')
+  const [password, setPassword] = useState('')
 
 
   //i create a function handleSubmit so my values can be updated, (e) stands for event
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log('registering to flavorfinder with', email, name, pass)
-  }
+    try {
+      const user = { name, email, password}
+      onRegister(user)
+    } catch (error) {
+      console.log('Error logging in', error)
+    }
+  };
 
 
   return (
@@ -28,6 +34,7 @@ const RegisterForm = () => {
           name='name' 
           id='name' 
           placeholder='write name here'
+          required
           />
 
           <label htmlFor='email'>Email:</label>
@@ -38,16 +45,18 @@ const RegisterForm = () => {
           name='email' 
           id='email' 
           placeholder='youremail@gmail.com' 
+          required
           />
 
           <label htmlFor='password'>Password:</label>
           <input 
-          value={pass} 
-          onChange={(e) => setPass(e.target.value)} 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
           type='password' 
           name='password' 
           id='password' 
           placeholder='*********'
+          required
           />
 
           <button type='submit'>Log in</button>
