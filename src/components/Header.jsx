@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
 
-const Header = () => {
+const Header = ({ isAuthenticated }) => {
   return (
     <>
     <header>
@@ -16,8 +16,8 @@ const Header = () => {
 
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            <Link className="nav-link" to="/find-restaurant-page">Find Restaurant</Link>
-            <Link className="nav-link" to="profile-page">My Profile</Link>
+            {isAuthenticated && <Link className="nav-link" to="/find-restaurant-page">Find Restaurant</Link>}
+            {isAuthenticated && <Link className="nav-link" to="profile-page">My Profile</Link>}
           </div>
         </div>
       </div>

@@ -7,17 +7,42 @@ const RegisterForm = ({ onRegister }) => {
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
 
   //i create a function handleSubmit so my values can be updated, (e) stands for event
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
     try {
-      const user = { name, email, password}
-      onRegister(user)
+
+      console.log('Registering with:', { name, email, password});
+
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, password })
+      })
+
+      const data = await response.json()
+      if (response.ok) {
+        localStorage.setItem('isAuthenticated', JSON.stringify(true))
+        onRegister(true)
+      } else {
+        setError(data.error || 'Registration failed')
+      }
     } catch (error) {
-      console.log('Error logging in', error)
+      console.log('Error registering:', error);
+      setError('Error registering')
     }
+
+  // try {
+    //   const user = { name, email, password}
+    //   onRegister(user)
+    // } catch (error) {
+    //   console.log('Error registering', error)
+    // }
   };
 
 

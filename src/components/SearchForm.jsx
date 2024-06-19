@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const SearchForm = () => {
+const SearchForm = ({ onSearch }) => {
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
   const [zipCode, setZipCode] = useState('')
@@ -12,7 +12,8 @@ const SearchForm = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     try {
-      navigate(`/results?city=${city}&state=${state}&zipCode=${zipCode}`)
+      navigate(`/results?city=${city}&state=${state}&zipCode=${zipCode}`);
+      onSearch();
     } catch (error) {
       console.log('Error searching restaurants:', error)
     }
@@ -32,7 +33,7 @@ const SearchForm = () => {
         type='text' 
         name='city' 
         id='city' 
-        placeholder='Washigton'
+        placeholder='city...'
         required
         />
 
@@ -43,7 +44,7 @@ const SearchForm = () => {
         type='text' 
         name='state' 
         id='state' 
-        placeholder='Utah'
+        placeholder='state...'
         required
         />
 
@@ -55,7 +56,6 @@ const SearchForm = () => {
         name='zip-code' 
         id='zip-code' 
         placeholder='84780'
-        required
         />
 
           

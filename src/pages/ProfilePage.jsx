@@ -1,5 +1,5 @@
-import React from 'react'
-import RestaurantList from '../components/RestaurantList'
+import React, { useState, useEffect } from 'react'
+import RestaurantList from '../components/RestaurantList.jsx'
 
 const ProfilePage = () => {
 

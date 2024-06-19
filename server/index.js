@@ -3,8 +3,8 @@
 //import packages
 import express from 'express';
 import ViteExpress from 'vite-express'
-import { addFavorite, getFavorites, getRestaurants, removeFavorite } from './controller.js';
-
+import { addFavorite, getFavorites, getRestaurants, loginUser, registerUser, removeFavorite, logoutUser, sessionCheck } from './controller.js';
+import session from 'express-session';
 
 
 //create Express instance
@@ -13,6 +13,11 @@ const app = express()
 
 // Set up middleware
 //and this is how data is send through the frontend and to the frontend to the backend
+app.use(session({
+    secret: 'hello',
+    resave: false,
+    saveUninitialized: false,
+}))
 
 app.use(express.json())
 
@@ -23,7 +28,10 @@ app.post('/api/favorites', addFavorite)
 app.get('/api/favorites/:userId', getFavorites)
 app.delete('/api/favorites/:favoriteId', removeFavorite)
 
-
+app.get('/api/session-check', sessionCheck)
+app.get('/api/logout', logoutUser)
+app.post('/api/login', loginUser)
+app.post('/api/register', registerUser)
 
 
 //Open door to server with .listen()

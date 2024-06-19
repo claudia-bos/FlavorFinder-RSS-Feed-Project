@@ -17,4 +17,4 @@ const FindRestaurantPage = () => {
   )
 }
 
-export default FindRestaurantPage
+export default FindRestaurantPage;

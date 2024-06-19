@@ -12,7 +12,7 @@ const API_KEY = '3c85cc8993msh9f19a8892b700bap10a6b6jsnf05d12fbdcb2';
 //the radius param will send the data of restaurants withing 5 kilometers around the user's place.
 //in the bottom this will be in charge of catching any problems while requesting data
 export const fetchRestaurants = async (city, state, zipCode) => {
-    const query = `${city}, ${state}, ${zipCode}`;
+    const query = `restaurants in ${city} ${state} ${zipCode}`;
     try {
         const response = await axios.get(API_URL, {
             params: {
@@ -52,3 +52,9 @@ export const addFavorite = async (userId, restaurantId) => {
         throw new Error(error.response ? error.response.data : error.message)
     }
 };
+
+// export const getFavorites = async (userId) => {
+//     const response  = await axios.get(`/api/favorites/${userId}`)
+//     return response.data
+// };
+

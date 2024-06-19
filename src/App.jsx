@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css'
 import { Link, Outlet } from 'react-router-dom';
 import Header from './components/Header';
-import ProfilePage from './pages/ProfilePage';
+
 
 
 
 
 function App() {
 
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    JSON.parse(localStorage.getItem('isAuthenticated')) || false
+  );
+
+  useEffect(() => {
+    localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated))
+  }, [isAuthenticated])
+
+
   return (
     <>
-      <Header />
-      <Outlet />
-      <ProfilePage/>
+      <Header isAuthenticated={isAuthenticated}/>
+      <Outlet context={[isAuthenticated, setIsAuthenticated]}/>
     </>
   )
 }
 
-export default App
+export default App;

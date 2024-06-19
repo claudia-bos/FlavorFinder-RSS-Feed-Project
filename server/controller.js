@@ -4,6 +4,7 @@
 
 import { fetchRestaurants } from "../src/services/api.js";
 import { User, Favorite, Restaurant } from '../database/model.js'
+import bcrypt from 'bcrypt'
 
 
 //now we will create an async function so this can act as a helper, and we can 
@@ -71,3 +72,84 @@ export const removeFavorite = async (req, res) => {
         res.status(500).json({ message: 'Error removing favorite', error })
     }
 };
+
+
+export const loginUser = async (req, res) => {
+    const { email, password } = req.body
+    try {
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            
+            console.log('user not found');
+
+            return res.status(404).json({ error: 'User not found!' })
+
+        }
+
+        console.log('user found:', user);
+        
+        // const isMatch = await bcrypt.compare(password, user.password)
+        const isMatch = user.password === password
+
+        if (!isMatch) {
+            console.log('wrong password');
+            
+            return res.status(400).json({ error: 'wrong password'})
+        }
+
+
+
+        req.session.user = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+        };
+
+        res.status(200).json({ message: 'Loging successful!', user: req.session.user })
+    } catch (error) {
+        console.log('login failed:', error);
+        
+        res.status(500).json({ error: 'Login failed!' })
+    }
+
+};
+
+
+export const registerUser = async (req, res) => {
+    const { name, email, password } = req.body
+    try {
+        // const hashedPassword = await bcrypt.hash(password, 2);
+        const newUser = await User.create({ name, email, password })
+        res.status(201).json({ message: 'User registered successfully!' })
+    } catch (error) {
+        res.status(500).json({ error: 'Registration failed!' })
+    }
+};
+
+//session check function
+export const sessionCheck = async (req, res) => {
+    if(req.session.user) {
+        res.send({
+            message: 'user is still logged in',
+            success: true,
+            userId: req.session.user.id
+        });
+    } else {
+        res.send({
+            message: 'no user logged in',
+            success: false
+        })
+    }
+};
+
+export const logoutUser = async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: 'logout failed', success: false })
+        }
+        res.clearCookie('connect.sid')
+        res.status(200).json({ message: 'Logout successful', success: true })
+    })
+};
+
+
