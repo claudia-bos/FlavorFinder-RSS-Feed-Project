@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import './LoginForm.css'
 
 //the onlogin is like a helper that tells the website what to do when the log in button is cliked
 const LoginForm = ({ onLogin }) => {
@@ -83,9 +84,11 @@ const LoginForm = ({ onLogin }) => {
   return (
     <>
         {/* here i will connect my handleSubmit with my form */}
-      <div className='home-page-form'>
+    <div className='container'>
 
-          <form onSubmit={handleSubmit}>
+      <div className='login-container'>
+
+          <form className='login-form' onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
             <input 
             value={email} 
@@ -108,10 +111,11 @@ const LoginForm = ({ onLogin }) => {
             required
             />
 
-            <button type='submit'>Log in</button>
+            <button className='login-button' type='submit'>Log in</button>
          </form>
 
       </div>
+    </div>
     
     </>
   )
