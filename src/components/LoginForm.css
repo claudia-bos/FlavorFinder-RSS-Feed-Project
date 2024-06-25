@@ -1,31 +1,18 @@
-/* body {
-    background: #FEFAE0; 
-   
-  } */
-  
+
   .login-container {
-    background: #e9ecef;
+    background:  rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     padding: 20px;
     width: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     
   }
-  .input-box {
-    border-radius: 6px;
-    padding: 4px;
-    background: #e9ecef;
-  }
   
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    
-  }
-  
+  /* .input-box {
+   border-radius: 5px;
+   height: 35px;
+  } */
+
   .login-form {
     display: flex;
     flex-direction: column;
@@ -46,4 +33,5 @@
   .login-button:hover {
     background: #283618;
   }
+  
   

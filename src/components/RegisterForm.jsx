@@ -52,7 +52,7 @@ const RegisterForm = ({ onRegister }) => {
     <div className='container '>
       <div className='register-container'>
         <form className='register-form' onSubmit={handleSubmit}>
-          <label htmlFor='name'>Full Name:</label>
+          <label htmlFor='name'>Username:</label>
           <input 
           value={name}
           onChange={(e) => setName(e.target.value)} 

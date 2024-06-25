@@ -9,29 +9,29 @@ console.log(`sending database...`)
 
 //we create a asynchronous function so we can insert multiple restaurant data into the database
 //asynchronouns work with promises. promise.all() = handle multiple asynchronouns operations
-const restaurantsInDB = await Promise.all(restaurantData.map(async restaurant => {
-    const { name, formatted_address, lat, lng, icon, bussiness_status, opem_now, photo_reference, place_id, compound_code, globa_code, price_level, rating, user_ratings_total, types } = restaurant
-//this creates a restaurant table
-    const newRestaurant = await Restaurant.create({
-        name,
-        formatted_address,
-        lat,
-        lng,
-        icon,
-        bussiness_status,
-        // opem_now,
-        // photo_reference,
-        place_id,
-        // compound_code,
-        // globa_code,
-        // price_level,
-        rating,
-        user_ratings_total,
-        // types
-    });
+// const restaurantsInDB = await Promise.all(restaurantData.map(async restaurant => {
+//     const { name, formatted_address, lat, lng, icon, bussiness_status, opem_now, photo_reference, place_id, compound_code, globa_code, price_level, rating, user_ratings_total, types } = restaurant
+// //this creates a restaurant table
+//     const newRestaurant = await Restaurant.create({
+//         name,
+//         formatted_address,
+//         lat,
+//         lng,
+//         icon,
+//         bussiness_status,
+//         // opem_now,
+//         // photo_reference,
+//         place_id,
+//         // compound_code,
+//         // globa_code,
+//         // price_level,
+//         rating,
+//         user_ratings_total,
+//         // types
+//     });
 
-    return newRestaurant
-}));
+//     return newRestaurant
+// }));
 
 
 // HERE we create a constant variable which will store the results of the database operations
@@ -57,17 +57,17 @@ const usersInDB = await Promise.all(
     })
 );
 
-const favoritesInDB = await Promise.all(usersInDB.flatMap(user => {
-    const randomRestaurants = lodash.sampleSize(restaurantsInDB, 3);
+// const favoritesInDB = await Promise.all(usersInDB.flatMap(user => {
+//     const randomRestaurants = lodash.sampleSize(restaurantsInDB, 3);
 
-    const userFavorites = randomRestaurants.map(restaurant => {
-        return Favorite.create({
-            user_id: user.userId,
-            restaurant_id: restaurant.restaurantId
-        });
-    });
-    return userFavorites
-}));
+//     const userFavorites = randomRestaurants.map(restaurant => {
+//         return Favorite.create({
+//             user_id: user.userId,
+//             restaurant_id: restaurant.restaurantId
+//         });
+//     });
+//     return userFavorites
+// }));
 
 
 await db.close()

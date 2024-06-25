@@ -64,7 +64,9 @@ console.log('Restaurants:', restaurants);
       {/* <h5>Welcome Claudia, Search for Restaurants Here!</h5> */}
       <SearchForm onSearch={handleSearch} />
       {/* {searched && <h5>Here are the best Reviewed Restaurants Near your Area!</h5>} */}
-      <h5 className='text-4xl'>Here are the best Reviewed Restaurants Near your Area!</h5>
+      <div className="text-3xl font-bold underline">
+      Here are the best Reviewed Restaurants Near your Area!
+      </div>
       <RestaurantList searched={searched} restaurants={restaurants} onAddFavorite={handleAddFavorite}/>
     </div>
 

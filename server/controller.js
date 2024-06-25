@@ -46,18 +46,16 @@ export const addFavorite = async (req, res) => {
 //we will use finAll so it can give all restaurants that the user with the right id has added as fav.
 
 export const getFavorites = async (req, res) => {
-    const userId = req.session.user.userId
 
-    if (!userId) {
+    if (!req.session.user) {
         return res.status(401).send({
             message: "No user in session"
         })
     }
-
     
     try {
         const favorites = await Favorite.findAll({
-            where: { user_id: userId },
+            where: { user_id: req.session.user.userId },
             include: { model: Restaurant }
         })
         console.log("HIT")
@@ -133,6 +131,10 @@ export const registerUser = async (req, res) => {
     try {
         // const hashedPassword = await bcrypt.hash(password, 2);
         const newUser = await User.create({ email, password })
+        req.session.user = {
+            userId: newUser.userId,
+            email: newUser.email
+        }
         res.status(201).json({ message: 'User registered successfully!' })
     } catch (error) {
         res.status(500).json({ error: 'Registration failed!' })

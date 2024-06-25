@@ -1,18 +1,25 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import RestaurantCard from '../components/RestaurantCard'
+import { useNavigate } from 'react-router-dom'
 
 const ProfilePage = () => { 
   const [favorites, setFavorites] = useState([])
   const [user, setUser] = useState({ email:''})
   const [newEmail, setNewEmail] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const navigate = useNavigate()
 
 
   const getUserFavorites = () => {
     axios.get('/api/getFavorites')
       .then(res => {
         setFavorites(res.data.favorites)
+
+      })
+      .catch(err => {
+        console.log('There was an error in fetching user favorites', err)
+        navigate("/")
       })
   }
 
@@ -23,6 +30,7 @@ const ProfilePage = () => {
       })
       .catch(error => {
         console.error('There was an error fetching the profile!', error)
+        navigate("/")
       })
       
       getUserFavorites()
