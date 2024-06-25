@@ -46,13 +46,26 @@ export const addFavorite = async (req, res) => {
 //we will use finAll so it can give all restaurants that the user with the right id has added as fav.
 
 export const getFavorites = async (req, res) => {
-    const { userId } = req.params
+    const userId = req.session.user.userId
+
+    if (!userId) {
+        return res.status(401).send({
+            message: "No user in session"
+        })
+    }
+
+    
     try {
         const favorites = await Favorite.findAll({
-            where: { userId },
-            include: 'Restaurant'
+            where: { user_id: userId },
+            include: { model: Restaurant }
         })
-        res.status(200).json(favorites)
+        console.log("HIT")
+        console.log(favorites)
+        res.status(200).json({
+            message: "User favorites found",
+            favorites: favorites
+        })
     } catch (error) {
         res.status(500).json({ message: 'Error fetching favorites', error })
     }
@@ -100,8 +113,8 @@ export const loginUser = async (req, res) => {
 
 
         req.session.user = {
-            id: user.id,
-            name: user.name,
+            userId: user.userId,
+            // name: user.name,
             email: user.email,
         };
 
@@ -116,10 +129,10 @@ export const loginUser = async (req, res) => {
 
 
 export const registerUser = async (req, res) => {
-    const { name, email, password } = req.body
+    const { email, password } = req.body
     try {
         // const hashedPassword = await bcrypt.hash(password, 2);
-        const newUser = await User.create({ name, email, password })
+        const newUser = await User.create({ email, password })
         res.status(201).json({ message: 'User registered successfully!' })
     } catch (error) {
         res.status(500).json({ error: 'Registration failed!' })
@@ -152,4 +165,130 @@ export const logoutUser = async (req, res) => {
     })
 };
 
+export const createRestaurant = async (req, res) => {
+    const { restaurant } = req.body
 
+    const restaurantInDB = await Restaurant.findOne({
+        where: {
+            place_id: restaurant.place_id
+        }
+    })
+
+    if (restaurantInDB) {
+        return res.status(200).send({
+            message: "Restaurant already in db",
+            newRestaurant: restaurantInDB
+        })
+    }
+
+    try {
+        const newRestaurant = await Restaurant.create({
+            name: restaurant.name, 
+            formatted_address: restaurant.formatted_address, 
+            lat: restaurant.geometry.location.lat, 
+            lng: restaurant.geometry.location.lng, 
+            icon: restaurant.icon, 
+            business_status: restaurant.business_status,
+            place_id: restaurant.place_id, 
+            rating: restaurant.rating,
+            user_ratings_total: restaurant.user_ratings_total,
+        })
+
+        res.status(200).send({
+            message: "Restaurant created",
+            newRestaurant: newRestaurant
+        })
+    } catch (err) {
+        res.status(500).send({
+            message: error,
+            newRestaurant: null
+        })
+    }
+}
+
+export const createFavorite = async (req, res) => {
+    const { restaurant } = req.body
+    
+    // Check if user has already favorited this restaurant and end function if so
+    if (await Favorite.findOne({
+        where: {
+            restaurant_id: restaurant.restaurantId,
+            user_id: req.session.user.userId
+        }
+    })) {
+        return res.status(200).send({
+            message: "User already favorited this restaurant"
+        })
+    } 
+
+    // Create a new Favorite object linking the user and the restaurant
+    const newFavorite = await Favorite.create({
+        user_id: req.session.user.userId,
+        restaurant_id: restaurant.restaurantId
+    })
+
+    return res.status(200).send({
+        message: "New favorite restaurant added!",
+        newFavorite: newFavorite
+    })
+
+}
+// profile features
+
+//it will grab the data from the database using the ID (user.findByPk)
+//the attributes means that it will fetch data only with userId and email
+//it will check if the user exist to send the data to the request or send an error if there is one
+
+export const getProfile = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.session.user.userId, {
+            attributes: ['userId', 'email']
+        });
+
+        if (user) {
+            res.json(user)
+        } else {
+            res.status(404).json({ error: 'User not found'});
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' })
+    }
+};
+
+//updatin the user info
+
+export const updateProfile = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findByPk(req.session.user.userId)
+
+        if (user) {
+            if(email) user.email = email;
+            if (password) user.password = password;
+            
+            await user.save()
+            res.json({ message: 'Profile updated successfully' })
+        } else {
+            res.status(404).json({ error: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Server error '})
+    }
+};
+
+// delete user account
+export const deleteAccount = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.session.user.userId)
+
+        if(user) {
+            await user.destroy()
+            res.json({ message: 'Account deleted successfully '})
+        } else {
+            res.status(404).json({ error: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Server error '})
+    }
+}

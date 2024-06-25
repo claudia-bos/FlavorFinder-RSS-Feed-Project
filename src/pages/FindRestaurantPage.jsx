@@ -11,7 +11,8 @@ const FindRestaurantPage = () => {
 
   return (
     <>
-    <h3>Welcome Claudia, Search for Restaurants Here!</h3>
+    <h3>Welcome to FlavorFinder</h3>
+    <p>Search for Restaurants Here</p> 
     <SearchForm/>
     </>
   )

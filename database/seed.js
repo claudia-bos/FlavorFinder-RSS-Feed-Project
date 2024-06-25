@@ -19,15 +19,15 @@ const restaurantsInDB = await Promise.all(restaurantData.map(async restaurant =>
         lng,
         icon,
         bussiness_status,
-        opem_now,
-        photo_reference,
+        // opem_now,
+        // photo_reference,
         place_id,
-        compound_code,
-        globa_code,
-        price_level,
+        // compound_code,
+        // globa_code,
+        // price_level,
         rating,
         user_ratings_total,
-        types
+        // types
     });
 
     return newRestaurant

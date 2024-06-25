@@ -91,6 +91,7 @@ const LoginForm = ({ onLogin }) => {
           <form className='login-form' onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
             <input 
+            className='input-box'
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
             type="email" 
@@ -99,9 +100,10 @@ const LoginForm = ({ onLogin }) => {
             name="email"
             required
             />
-
+            <br/>
             <label htmlFor="password">Password:</label>
             <input 
+            className='input-box'
             value={password} 
             onChange={(e) => setPassword(e.target.value)}
             type="password" 
@@ -110,7 +112,7 @@ const LoginForm = ({ onLogin }) => {
             name="password"
             required
             />
-
+            <br/>
             <button className='login-button' type='submit'>Log in</button>
          </form>
 

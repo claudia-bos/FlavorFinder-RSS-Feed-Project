@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './RegisterForm.css'
 
 //so onRegister will be call inside my RegisterForm function,this is called destructuring
 //it means that my function is expecting to receive an object with a property onRegister
@@ -48,9 +49,9 @@ const RegisterForm = ({ onRegister }) => {
 
   return (
     <>
-    <div className='home-page-form'>
-
-        <form onSubmit={handleSubmit}>
+    <div className='container '>
+      <div className='register-container'>
+        <form className='register-form' onSubmit={handleSubmit}>
           <label htmlFor='name'>Full Name:</label>
           <input 
           value={name}
@@ -61,7 +62,7 @@ const RegisterForm = ({ onRegister }) => {
           placeholder='write name here'
           required
           />
-
+          <br/>
           <label htmlFor='email'>Email:</label>
           <input 
           value={email} 
@@ -72,7 +73,7 @@ const RegisterForm = ({ onRegister }) => {
           placeholder='youremail@gmail.com' 
           required
           />
-
+          <br/>
           <label htmlFor='password'>Password:</label>
           <input 
           value={password} 
@@ -83,10 +84,10 @@ const RegisterForm = ({ onRegister }) => {
           placeholder='*********'
           required
           />
-
-          <button type='submit'>Log in</button>
+          <br/>
+          <button className='login-button' type='submit'>Log in</button>
         </form>
-      
+      </div>      
     </div>
     </>
   )

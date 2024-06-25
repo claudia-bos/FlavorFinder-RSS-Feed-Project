@@ -83,13 +83,13 @@ Restaurant.init(
             type: DataTypes.STRING,
         },
          
-        open_now: {
-            type: DataTypes.BOOLEAN,
-        },
+        // open_now: {
+        //     type: DataTypes.BOOLEAN,
+        // },
 
-        photo_reference: {
-            type: DataTypes.STRING,
-        },
+        // photo_reference: {
+        //     type: DataTypes.STRING,
+        // },
 
         place_id: {
             type: DataTypes.STRING,
@@ -97,12 +97,12 @@ Restaurant.init(
             unique: true
         },
 
-        compound_code: DataTypes.STRING,
-        global_code: DataTypes.STRING,
-        price_level: DataTypes.INTEGER,
+        // compound_code: DataTypes.STRING,
+        // global_code: DataTypes.STRING,
+        // price_level: DataTypes.INTEGER,
         rating: DataTypes.DECIMAL(2, 1),
         user_ratings_total: DataTypes.INTEGER,
-        types: DataTypes.TEXT,
+        // types: DataTypes.TEXT,
     },
 
     {
@@ -121,21 +121,21 @@ export class Favorite extends Model {
 Favorite.init(
 
     {
-        id: {
+        favoriteId: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
 
-        user_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
+        // user_id: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        // },
 
-        restaurant_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
+        // restaurant_id: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        // },
     },
 
     {
@@ -151,7 +151,7 @@ User.hasMany(Favorite, { foreignKey: 'user_id' });
 Favorite.belongsTo(User, { foreignKey: 'user_id' });
 
 Restaurant.hasMany(Favorite, { foreignKey: 'restaurant_id' });
-Favorite.belongsTo(User, { foreignKey: 'restaurant_id' });
+Favorite.belongsTo(Restaurant, { foreignKey: 'restaurant_id' });
 
 
 if (process.argv[1] === url.fileURLToPath(import.meta.url)) {

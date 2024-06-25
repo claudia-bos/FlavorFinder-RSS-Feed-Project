@@ -4,7 +4,7 @@ import axios from 'axios';
 //this is the web address where we send our requests to get the information of the restaurants
 const API_URL = 'https://map-places.p.rapidapi.com/textsearch/json';
 //this is the secret code that will help us access the code
-const API_KEY = '3c85cc8993msh9f19a8892b700bap10a6b6jsnf05d12fbdcb2';
+const API_KEY = '8fd9bac121mshda69ed5b7f4a0bfp1dd678jsn0e8dcbf5041d';
 
 
 //this set up in a way that the user can get data from the API by their state, city and zipcode
