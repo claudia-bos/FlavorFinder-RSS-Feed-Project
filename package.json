@@ -12,6 +12,7 @@
     "initdb": "dropdb --if-exists name-of-database && createdb name-of-database && node file-path-to-seed-file.js"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.4",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",

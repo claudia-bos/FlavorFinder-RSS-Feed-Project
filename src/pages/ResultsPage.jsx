@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import RestaurantList from '../components/RestaurantList.jsx'
 import SearchForm from '../components/SearchForm.jsx'
 import { fetchRestaurants, addFavorite } from '../services/api.js'
+import perur from '../assets/perur.jpg'
 
 //ResultsPage take one property user which repersents the person using the page
 //then we have to implement a state variable = useState so we can keep track of a list of restaurants, this will strore the API data 
@@ -29,7 +30,9 @@ const ResultsPage = ({ user }) => {
         try {
           const data = await fetchRestaurants(city, state, zipCode)
           console.log(data);
-          setRestaurants(data)
+          //sorted
+          const sortedData = data.sort((a, b) => b.rating - a.rating)
+          setRestaurants(sortedData)
         } catch (error) {
           console.log('Error fetching restuarants:', error);
         }
@@ -58,19 +61,27 @@ const handleAddFavorite = async (restaurantId) => {
 console.log('Restaurants:', restaurants);
 
   return (
-    <>
     <div>
-      
-      {/* <h5>Welcome Claudia, Search for Restaurants Here!</h5> */}
-      <SearchForm onSearch={handleSearch} />
-      {/* {searched && <h5>Here are the best Reviewed Restaurants Near your Area!</h5>} */}
-      <div className="text-3xl font-bold underline">
-      Here are the best Reviewed Restaurants Near your Area!
-      </div>
-      <RestaurantList searched={searched} restaurants={restaurants} onAddFavorite={handleAddFavorite}/>
-    </div>
 
-    </>
+      <div
+        className="w-full h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${perur})` }}>     
+          {/* <h5>Welcome Claudia, Search for Restaurants Here!</h5> */}
+          <div className="bg-black bg-opacity-50 p-5 py-7">
+            <div className="bg-white bg-opacity-10 p-8 py-7 rounded-md shadow-md">            
+               <SearchForm onSearch={handleSearch} className="shadow-none"/>
+            </div>
+          </div>
+          {/* {searched && <h5>Here are the best Reviewed Restaurants Near your Area!</h5>} */}
+      </div>
+          <div>
+          <h5 className="text-2xl mt-8 mb-4 text-center font-bold font-sans"> Here Are The Best Reviewed Restaurants Near Your Area</h5>
+          </div>
+          <div>
+          <RestaurantList searched={searched} restaurants={restaurants} onAddFavorite={handleAddFavorite}/>
+          </div>
+
+    </div>
   )
 }
 

@@ -6,7 +6,8 @@ import HomePage from './pages/HomePage.jsx'
 import FindRestaurantPage from './pages/FindRestaurantPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import ResultsPage from './pages/ResultsPage.jsx'
-import 'bootstrap/dist/css/bootstrap.css'
+
+import './index.css'
 
 const router = createBrowserRouter(
   createRoutesFromElements(

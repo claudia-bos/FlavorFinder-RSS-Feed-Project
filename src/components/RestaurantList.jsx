@@ -12,7 +12,7 @@ console.log(restaurants);
 
   return (
 
-    <>
+    <div className="mt-8 max-w-4xl mx-auto space-y-4">
     
     {/* <h4>Here are the best Reviewed Restaurants Near your Area!</h4> */}
 
@@ -23,9 +23,9 @@ console.log(restaurants);
           onAddFavorite={onAddFavorite}
           />
         ))}
-        {restaurants.length === 0 && searched && <div>Loading restaurant...</div>}
+        {restaurants.length === 0 && searched && <div className="text-center text-gray-500">Loading restaurant...</div>}
 
-    </>
+    </div>
   )
 };
 

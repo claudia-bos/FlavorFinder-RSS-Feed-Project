@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './RegisterForm.css'
+// import './RegisterForm.css'
 
 //so onRegister will be call inside my RegisterForm function,this is called destructuring
 //it means that my function is expecting to receive an object with a property onRegister
@@ -49,46 +49,70 @@ const RegisterForm = ({ onRegister }) => {
 
   return (
     <>
-    <div className='container '>
-      <div className='register-container'>
-        <form className='register-form' onSubmit={handleSubmit}>
-          <label htmlFor='name'>Username:</label>
-          <input 
-          value={name}
-          onChange={(e) => setName(e.target.value)} 
-          type='name' 
-          name='name' 
-          id='name' 
-          placeholder='write name here'
-          required
-          />
-          <br/>
-          <label htmlFor='email'>Email:</label>
-          <input 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          type='email' 
-          name='email' 
-          id='email' 
-          placeholder='youremail@gmail.com' 
-          required
-          />
-          <br/>
-          <label htmlFor='password'>Password:</label>
-          <input 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          type='password' 
-          name='password' 
-          id='password' 
-          placeholder='*********'
-          required
-          />
-          <br/>
-          <button className='login-button' type='submit'>Log in</button>
-        </form>
-      </div>      
-    </div>
+      <div className="  w-full flex flex-col items-center w-full px-4 pt-7">
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-0 text-center text-3xl lg:font-extrabold text-textColor animate-pulse">Register Here</h2>
+          </div>
+          <form className="mt-8 space-y-6 w-full" onSubmit={handleSubmit}>
+            <div className="bg-box bg-opacity-9 py-8 px-4 shadow sm:rounded-lg sm:px-10 w-full">
+
+                <div>
+                  <label htmlFor='name' className="block text-sm font-medium leading-6 text-textColor">Username:</label>
+                    <div className="mt-1">
+                      <input 
+                      value={name}
+                      onChange={(e) => setName(e.target.value)} 
+                      type='name' 
+                      name='name' 
+                      id='name' 
+                      placeholder='write name here'
+                      required
+                      className="block w-full appearance-none rounded-md border border-gray-600 bg-gray-700 bg-opacity-30 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"    
+                      />
+                    </div>
+                </div>
+              
+                <div>
+                  <label htmlFor='email' className="block text-sm font-medium leading-6 text-textColor">Email:</label>
+                    <div className="mt-1">
+                      <input 
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        type='email' 
+                        name='email' 
+                        id='email' 
+                        placeholder='youremail@gmail.com' 
+                        required
+                        className="block w-full appearance-none rounded-md border border-gray-600 bg-gray-700 bg-opacity-30 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"    
+                      />
+                    </div>
+                </div>
+                
+                <div>
+                  <label htmlFor='password'className="block text-sm font-medium leading-6 text-textColor">Password:</label>
+                    <div className="mt-1">
+                      <input 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        type='password' 
+                        name='password' 
+                        id='password' 
+                        placeholder='*********'
+                        required
+                        className="block w-full appearance-none rounded-md border border-gray-600 bg-gray-700 bg-opacity-30 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"    
+                      />
+                    </div>
+                </div>
+            </div>
+
+            <div>
+             <button className="flex w-full justify-center rounded-md bg-customGreen px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-hoverGreen focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-customeGreen" type='submit'>Log in</button>
+            </div>
+
+          </form>    
+        </div>      
+      </div>
     </>
   )
 }

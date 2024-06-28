@@ -1,31 +1,46 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './Header.css'
+import { MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import logo from '../assets/FlavorFinder.png'
 
 const Header = ({ isAuthenticated }) => {
   return (
-    <>
-    <header>
-       
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">FlavorFinder</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-         <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div className="navbar-nav">
-            {isAuthenticated && <Link className="nav-link" to="/find-restaurant-page">Find Restaurant</Link>}
-            {isAuthenticated && <Link className="nav-link" to="profile-page">My Profile</Link>}
-          </div>
+    <header className="relative bg-box shadow-sm w-full rounded-md sm:text-sm">
+      <nav className="container mx-auto flex justify-between items-center py-4 px-4">
+        <div className="flex items-center space-x-2">
+        <Link to="/">
+            <img
+              className="h-14 w-64"
+              src={logo} 
+              alt="FlavorFinder Logo"
+            />
+          </Link>
         </div>
-      </div>
-    </nav>
-        
+        <div className="flex space-x-4">
+          {isAuthenticated ? (
+            <>
+              <Link className="text-2xl font-bold text-white comic-sans no-underline flex items-center space-x-2"  to="/find-restaurant-page">
+              <MagnifyingGlassIcon className="h-6 w-6 text-gray-900" />
+                <span>
+                Find Restaurant
+                </span>
+              </Link>
+              <Link className="text-2xl font-bold text-white comic-sans no-underline flex items-center space-x-2"  to="/profile-page">
+              <UserCircleIcon className="h-6 w-6 text-gray-900" /> 
+                <span>
+                My Profile
+                </span>
+              </Link>
+            </>
+          ) : (
+            <>
+            </>
+          )}
+        </div>
+      </nav>
+      
     </header>
-    </>
-  )
-}
+  );
+};
 
 export default Header
